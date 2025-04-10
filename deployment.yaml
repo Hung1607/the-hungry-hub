@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-hungry-hub-backend-deployment
+spec:
+  replicas: 1 # 1 pod should be running at all times, it is crashes k8s will restart it.
+  selector:
+    matchLabels:
+      app: the-hungry-hub-backend
+  template: # template for pods followed
+    metadata:
+      labels:
+        app: the-hungry-hub-backend
+    spec:
+      containers:
+        - name: the-hungry-hub-backend-pod
+          image: gingerspider/the-hungry-hub-backend:latest # pull from docker hub
+          ports:
+            - containerPort: 8080 # port exposed by the container
